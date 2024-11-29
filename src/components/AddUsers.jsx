@@ -50,6 +50,7 @@ const AddUsers = () => {
   // Form Submission Function to Add students
   const handleSubmit = (e) => {
     e.preventDefault();
+    //Reusable Form validation function called
     const formErrors = validateForm(formData);
     if (Object.keys(formErrors).length > 0) {
       setErrors(formErrors);

@@ -6,6 +6,9 @@ const OpenEditModal = lazy(() => import("./OpenEditModal"));
 const ViewUsers = () => {
   const [studentsData, setStudentsData] = useState([]);
   const [editModalOpen, setEditModalOpen] = useState(null);
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [deleteID, setDeleteID] = useState(null);
+
   const { closeModal } = useContext(ResDataContext);
   const { renderAfterAction } = useContext(ResDataContext);
 
@@ -27,6 +30,8 @@ const ViewUsers = () => {
       const response = await clientAPI.delete(`/${stuID}`);
       if (response.status === 200) {
         alert("Student Removed!");
+        setDeleteModalOpen(false); // Close the confirmation modal
+        getStudents(); // Refresh the students data
       }
     } catch (error) {
       if (error) {
@@ -35,18 +40,15 @@ const ViewUsers = () => {
     }
   };
 
-  const handleEdit = async (
-    stuID,
-    stuFname,
-    stuLname,
-    stuEmail,
-    stuDepartment
-  ) => {
-    // Navigate to the edit form with the selected student's ID
+  const handleEdit = (stuID, stuFname, stuLname, stuEmail, stuDepartment) => {
     setEditModalOpen({ stuID, stuFname, stuLname, stuEmail, stuDepartment });
   };
 
-  //Whenevr there is a change in the state the API call is triggered
+  const handleDeleteClick = (stuID) => {
+    setDeleteModalOpen(true);
+    setDeleteID(stuID); // Saved the ID of the student to be deleted
+  };
+
   useEffect(() => {
     getStudents();
     setEditModalOpen(null);
@@ -113,7 +115,7 @@ const ViewUsers = () => {
                   </button>
                   <button
                     className="border hover:bg-red-400 px-2 ml-2"
-                    onClick={() => handleDelete(student.id)}
+                    onClick={() => handleDeleteClick(student.id)}
                   >
                     Delete
                   </button>
@@ -123,11 +125,38 @@ const ViewUsers = () => {
           ))}
         </table>
       </div>
+
+      {/* Modal opens on click edit button */}
       {editModalOpen && (
         <OpenEditModal
           open={editModalOpen}
           onClose={() => setEditModalOpen(null)}
         />
+      )}
+
+      {/* Delete Confirmation Modal */}
+      {deleteModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white rounded-lg shadow-lg w-full max-w-md mx-4 md:mx-auto p-4">
+            <h2 className="text-lg font-bold text-center mb-4">
+              Are you sure you want to delete this student?
+            </h2>
+            <div className="flex justify-center gap-4">
+              <button
+                className="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600 transition"
+                onClick={() => handleDelete(deleteID)}
+              >
+                OK
+              </button>
+              <button
+                className="bg-gray-300 text-black py-2 px-4 rounded hover:bg-gray-400 transition"
+                onClick={() => setDeleteModalOpen(false)}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
       )}
     </>
   );
