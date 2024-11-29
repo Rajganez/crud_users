@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import { clientAPI } from "../api/axios";
 import { ResDataContext } from "../lib/Context";
 import DOMPurify from "dompurify";
+import { validateForm } from "../lib/formValidation.js";
 
 const AddUsers = () => {
   // ContextAPI State updated to close the modal window
@@ -17,37 +18,6 @@ const AddUsers = () => {
   const [formData, setFormData] = useState(intialFormData);
   // State for Error handling
   const [errors, setErrors] = useState({});
-
-  //Error validation function
-  const validateForm = () => {
-    const errors = {};
-    if (
-      !formData.firstName ||
-      formData.firstName.length < 3 ||
-      formData.firstName.length > 50
-    ) {
-      errors.firstName = "First Name atleast 3 characters.";
-    }
-    if (
-      !formData.lastName ||
-      formData.lastName.length < 1 ||
-      formData.lastName.length > 50
-    ) {
-      errors.lastName = "Last Name atleast 1 character.";
-    }
-    if (!formData.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      errors.email = "Enter a valid email address.";
-    }
-
-    if (
-      !formData.department ||
-      formData.department.length < 1 ||
-      formData.department.length > 50
-    ) {
-      errors.department = "Department is required";
-    }
-    return errors;
-  };
 
   // Form On Change function
   const handleChange = (e) => {
@@ -80,7 +50,7 @@ const AddUsers = () => {
   // Form Submission Function to Add students
   const handleSubmit = (e) => {
     e.preventDefault();
-    const formErrors = validateForm();
+    const formErrors = validateForm(formData);
     if (Object.keys(formErrors).length > 0) {
       setErrors(formErrors);
     } else {

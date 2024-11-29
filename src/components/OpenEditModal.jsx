@@ -3,11 +3,13 @@ import { useContext, useEffect, useState } from "react";
 import { clientAPI } from "../api/axios";
 import { ResDataContext } from "../lib/Context";
 import DOMPurify from "dompurify";
+import { validateForm } from "../lib/formValidation.js";
 
 const OpenEditModal = ({ open, onClose }) => {
   const { setCloseModal, closeModal } = useContext(ResDataContext);
 
   const [formData, setFormData] = useState({});
+  const [errors, setErrors] = useState({});
 
   // Update formData whenever open changes
   useEffect(() => {
@@ -55,7 +57,14 @@ const OpenEditModal = ({ open, onClose }) => {
   // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    editAPICall();
+    //Reusable Form validation function called
+    const formErrors = validateForm(formData);
+    if (Object.keys(formErrors).length > 0) {
+      setErrors(formErrors);
+    } else {
+      setErrors({});
+      editAPICall();
+    }
   };
 
   return (
@@ -72,7 +81,6 @@ const OpenEditModal = ({ open, onClose }) => {
               Close
             </button>
           </div>
-
           <form onSubmit={handleSubmit} className="p-4 flex flex-col gap-4">
             {/* First Name */}
             <div>
@@ -90,6 +98,11 @@ const OpenEditModal = ({ open, onClose }) => {
                 onChange={handleChange}
                 className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring"
               />
+              {errors.firstName && (
+                <p className="text-left text-sm text-red-500">
+                  {errors.firstName}
+                </p>
+              )}
             </div>
 
             {/* Last Name */}
@@ -108,6 +121,11 @@ const OpenEditModal = ({ open, onClose }) => {
                 onChange={handleChange}
                 className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring"
               />
+              {errors.lastName && (
+                <p className="text-left text-sm text-red-500">
+                  {errors.lastName}
+                </p>
+              )}
             </div>
 
             {/* Email */}
@@ -126,6 +144,9 @@ const OpenEditModal = ({ open, onClose }) => {
                 onChange={handleChange}
                 className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring"
               />
+              {errors.email && (
+                <p className="text-left text-sm text-red-500">{errors.email}</p>
+              )}
             </div>
 
             {/* Department */}
@@ -144,6 +165,11 @@ const OpenEditModal = ({ open, onClose }) => {
                 onChange={handleChange}
                 className="mt-1 p-2 w-full border rounded-md focus:outline-none focus:ring"
               />
+              {errors.department && (
+                <p className="text-left text-sm text-red-500">
+                  {errors.department}
+                </p>
+              )}
             </div>
 
             {/* Submit Button */}
