@@ -2,7 +2,7 @@
 
 This project is a single-page React application that fetches and displays student user data using the JSONPlaceholder API. It features efficient conditional rendering, form validation, and error handling to provide a seamless and performant user experience.
 
-[Live Demo]()  
+[Live Demo](https://studentusers.netlify.app/)  
 Access the live version of this project by clicking the link above.
 
 ## **Application Highlights**
@@ -10,24 +10,29 @@ Access the live version of this project by clicking the link above.
 - **Student User View**: Fetches and displays student user data from the `/users` endpoint of the JSONPlaceholder API.
 
 - **Data Mapping**:
-    - `name` → `firstName`
-    - `username` → `lastName`
-    - `email` → `email`
-    - `company.name` → `department`
+
+  - `name` → `firstName`
+  - `username` → `lastName`
+  - `email` → `email`
+  - `company.name` → `department`
 
 - **Single Page Design**:
+
   - All components are conditionally rendered on a single page to avoid unnecessary rerenders and maximize performance.
 
 - **Form Validation**:
+
   - Includes robust error handling for forms.
   - Displays specific validation messages for input errors.
 
 - **Sanitization with DOMPurify**:
+
   - Input fields are sanitized using **DOMPurify** before being sent to the API to prevent potential XSS attacks.
 
 - **Responsive Design**: Styled with TailwindCSS for a clean, responsive layout.
 
 - **API Error Handling**:
+
   - Comprehensive handling of API errors, ensuring the application provides user-friendly error messages when issues occur.
 
 - **Context API**:
