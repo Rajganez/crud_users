@@ -21,7 +21,7 @@ const Home = () => {
       <nav className="sticky top-0 z-50 border-b border-gray-200 bg-white mt-5">
         <div className="flex justify-between h-14 md:mx-10">
           <div>
-            <h3 className="md:text-3xl text-lg font-semibold">
+            <h3 className="md:text-3xl text-lg font-semibold md:ml-0 ml-2">
               Students Details
             </h3>
           </div>
@@ -75,8 +75,8 @@ const Home = () => {
           <h1 className="md:text-3xl text-xl font-semibold text-gray-800">
             Student Details
           </h1>
-          <p className="md:text-lg text-sm text-gray-600 mt-5">
-            This is a sample page to where CRUD Operations can be performed on
+          <p className="md:text-lg text-sm text-gray-600 mt-5 font-semibold">
+            This is a sample page where CRUD Operations can be performed on
             the Student Details.
           </p>
           <ul className="md:text-lg text-sm text-gray-600">
@@ -86,7 +86,7 @@ const Home = () => {
             <li className="font-semibold">
               For Each Student Edit and Delete Actions are performed
             </li>
-            <li className="font-semibold">And Student can be Added</li>
+            <li className="font-semibold">And Students can be Added</li>
           </ul>
         </div>
       )}
