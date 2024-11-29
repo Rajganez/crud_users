@@ -5,7 +5,7 @@ import { ResDataContext } from "../lib/Context";
 import DOMPurify from "dompurify";
 
 const OpenEditModal = ({ open, onClose }) => {
-  const { setRenderAfterAction, setCloseModal } = useContext(ResDataContext);
+  const { setCloseModal, closeModal } = useContext(ResDataContext);
 
   const [formData, setFormData] = useState({});
 
@@ -43,8 +43,7 @@ const OpenEditModal = ({ open, onClose }) => {
       const response = await clientAPI.put(`/${open.stuID}`, sanitizedData);
       if (response.status === 200) {
         alert("Edited Successfully!");
-        setRenderAfterAction(true);
-        setCloseModal(true);
+        setCloseModal(!closeModal);
       }
     } catch (error) {
       if (error) {

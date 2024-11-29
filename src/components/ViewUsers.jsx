@@ -49,9 +49,7 @@ const ViewUsers = () => {
   //Whenevr there is a change in the state the API call is triggered
   useEffect(() => {
     getStudents();
-    if (closeModal) {
-      setEditModalOpen(null);
-    }
+    setEditModalOpen(null);
   }, [closeModal, renderAfterAction]);
 
   return (
