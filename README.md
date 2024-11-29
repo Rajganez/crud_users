@@ -1,6 +1,6 @@
 # Student User Management Application
 
-This project is a single-page React application that fetches and displays student user data using the JSONPlaceholder API. It features efficient conditional rendering, form validation, and error handling to provide a seamless and performant user experience.
+This project is a single-page React application that fetches and displays student user data using the JSONPlaceholder API. It features efficient conditional rendering, form validation, form Sanitization, Context-API State management and error handling to provide a seamless and performant user experience.
 
 [Live Demo](https://studentusers.netlify.app/)  
 Access the live version of this project by clicking the link above.
